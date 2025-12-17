@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import styles from "./page.module.css";
 
 type Cell = {
@@ -69,9 +72,12 @@ const calculateNeighboringMines = (board: Cell[][]): void => {
 }
 
 export default function Home() {
-  return (
-    <div className={styles.main}>
-      <h1>Minesweeper</h1>
-    </div>
-  );
+  const [board, setBoard] = useState<Cell[][]>(() => initBoard(10, 10, 10));
+
+  const openCell = (r: number, c: number) => {
+    if (board[r][c].isRevealed || board[r][c].isFlagged) return;
+    const newBoard = board.map((row) => [...row]);
+    newBoard[r][c] = { ...newBoard[r][c], isRevealed: true };
+    setBoard(newBoard);
+  }
 }
