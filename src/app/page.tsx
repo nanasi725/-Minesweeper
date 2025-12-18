@@ -75,13 +75,25 @@ export default function Home() {
   const [board, setBoard] = useState<Cell[][]>(() => initBoard(10, 10, 10));
 
   const openCell = (r: number, c: number) => {
-    if (board[r][c].isRevealed || board[r][c].isFlagged) return;
     const newBoard = board.map((row) => [...row]);
-    newBoard[r][c] = { ...newBoard[r][c], isRevealed: true };
+
+    const reveal = (r: number, c: number) => {
+      if (r < 0 || r >= board.length || c < 0 || c >= board[0].length) return;
+      if (newBoard[r][c].isRevealed || newBoard[r][c].isFlagged) return;
+
+      newBoard[r][c] = { ...newBoard[r][c], isRevealed: true };
+      if (newBoard[r][c].neighboringMines === 0 && !newBoard[r][c].isMine) {
+        for (const [dr, dc] of directions) {
+          reveal(r + dr, c + dc);
+        }
+      }
+    };  
+
+    reveal(r, c);
     setBoard(newBoard);
   };
 
-   return (
+  return (
     <div className={styles.main}>
       <h1>Minesweeper</h1>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 30px)" }}>
