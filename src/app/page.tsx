@@ -80,4 +80,5 @@ export default function Home() {
     newBoard[r][c] = { ...newBoard[r][c], isRevealed: true };
     setBoard(newBoard);
   }
+
 }
