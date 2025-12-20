@@ -93,6 +93,15 @@ export default function Home() {
     setBoard(newBoard);
   };
 
+  const toggleFlag = (r: number, c: number, e: React.MouseEvent) => {
+      e.preventDefault();
+      const newBoard = board.map((row) => [...row]);
+      
+      if (newBoard[r][c].isRevealed) return;
+      newBoard[r][c].isFlagged = !newBoard[r][c].isFlagged;
+      setBoard(newBoard);
+    };
+
   return (
     <div className={styles.main}>
       <h1>Minesweeper</h1>
@@ -102,6 +111,7 @@ export default function Home() {
             <div
               key={`${rIndex}-${cIndex}`}
               onClick={() => openCell(rIndex, cIndex)} 
+              onContextMenu={(e) => toggleFlag(rIndex, cIndex, e)}
               style={{
                 width: 30,
                 height: 30,
@@ -109,19 +119,17 @@ export default function Home() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                // 開いていない(false)ならグレー、開いてる(true)なら爆弾か背景色
                 backgroundColor: !cell.isRevealed
-                  ? "#999" // 隠れている色
+                  ? "#999" 
                   : cell.isMine
-                  ? "#ffcccc" // 爆弾の色
-                  : "#eee", // 開いた安全なマスの色
+                  ? "#ffcccc" 
+                  : "#eee", 
                 color: "black",
                 fontSize: "14px",
                 fontWeight: "bold",
                 cursor: "pointer",
               }}
             >
-              {/* 開いている時だけ、中身を表示する */}
               {cell.isRevealed && (
                 cell.isMine ? "💣" : cell.neighboringMines > 0 ? cell.neighboringMines : ""
               )}
