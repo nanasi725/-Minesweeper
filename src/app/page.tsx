@@ -110,7 +110,7 @@ export default function Home() {
           row.map((cell, cIndex) => (
             <div
               key={`${rIndex}-${cIndex}`}
-              onClick={() => openCell(rIndex, cIndex)} 
+              onClick={() => openCell(rIndex, cIndex)}
               onContextMenu={(e) => toggleFlag(rIndex, cIndex, e)}
               style={{
                 width: 30,
@@ -120,19 +120,26 @@ export default function Home() {
                 alignItems: "center",
                 justifyContent: "center",
                 backgroundColor: !cell.isRevealed
-                  ? "#999" 
+                  ? "#999"
                   : cell.isMine
-                  ? "#ffcccc" 
-                  : "#eee", 
+                  ? "#ffcccc"
+                  : "#eee",
+                cursor: "pointer",
                 color: "black",
                 fontSize: "14px",
                 fontWeight: "bold",
-                cursor: "pointer",
+                userSelect: "none",
               }}
             >
-              {cell.isRevealed && (
-                cell.isMine ? "💣" : cell.neighboringMines > 0 ? cell.neighboringMines : ""
-              )}
+              {cell.isRevealed
+                ? cell.isMine
+                  ? "💣"
+                  : cell.neighboringMines > 0
+                  ? cell.neighboringMines
+                  : ""
+                : cell.isFlagged
+                ? "🚩"
+                : ""}
             </div>
           ))
         )}
