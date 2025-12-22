@@ -104,7 +104,6 @@ export default function Home() {
 
   return (
     <div className={styles.main}>
-      <h1>Minesweeper</h1>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 30px)" }}>
         {board.map((row, rIndex) =>
           row.map((cell, cIndex) => (

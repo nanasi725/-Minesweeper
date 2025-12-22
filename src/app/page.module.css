@@ -6,3 +6,17 @@
   min-height: 100vh;
   padding: 0 0 5rem;
 }
+
+.header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #c0c0c0;
+  border-top: 5px solid #808080;
+  border-right: 5px solid #fff;
+  border-bottom: 5px solid #fff;
+  border-left: 5px solid #808080;
+}
